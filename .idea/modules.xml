@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/microservices-ms-proj.iml" filepath="$PROJECT_DIR$/.idea/microservices-ms-proj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ms-order/ms-order.iml" filepath="$PROJECT_DIR$/ms-order/ms-order.iml" />
     </modules>
   </component>
 </project>
