@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/microservices-ms-proj.iml" filepath="$PROJECT_DIR$/.idea/microservices-ms-proj.iml" />
       <module fileurl="file://$PROJECT_DIR$/ms-order/ms-order.iml" filepath="$PROJECT_DIR$/ms-order/ms-order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ms-restaurant/ms-restaurant.iml" filepath="$PROJECT_DIR$/ms-restaurant/ms-restaurant.iml" />
     </modules>
   </component>
 </project>
