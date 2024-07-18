@@ -1,7 +1,7 @@
 package com.esprit.ms_order.mapper;
 
 import com.esprit.ms_order.dto.OrderDTO;
-import com.esprit.ms_order.model.Order;
+import com.esprit.ms_order.model.Orders;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -10,8 +10,8 @@ import org.mapstruct.factory.Mappers;
 public interface OrderMappper {
     OrderMappper INSTANCE = Mappers.getMapper(OrderMappper.class);
     @Mapping(source = "id", target = "orderId")
-    OrderDTO toDto(Order order);
+    OrderDTO toDto(Orders order);
     @Mapping(source = "orderId", target = "id")
-    Order toEntity(OrderDTO orderDTO);
+    Orders toEntity(OrderDTO orderDTO);
 
 }
