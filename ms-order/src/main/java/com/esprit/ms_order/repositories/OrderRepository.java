@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    List<Order> findAllByEventId(String orderId);
+    List<Order> findAllByRestauranttId(String orderId);
 }

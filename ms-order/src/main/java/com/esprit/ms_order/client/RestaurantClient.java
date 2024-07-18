@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "MS-RESTAURANT", configuration = FeignConfig.class)
 public interface RestaurantClient {
 
-    @GetMapping("/events/{id}")
+    @GetMapping("/restaurants/{id}")
     @CircuitBreaker(name="msRestaurant",fallbackMethod ="fallbackGetRestaurantById")
     RestaurantDTO getRestaurantById(@PathVariable("id") String id);
 
