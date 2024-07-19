@@ -76,7 +76,7 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.deleteById(id);
     }
 
-    @KafkaListener(topics = "event-topic", groupId = "group_id")
+    @KafkaListener(topics = "restaurant-topic", groupId = "group_id")
     public void consumeEvent(String idRestau) {
         orderRepository.findAllByRestaurantId(idRestau).forEach(
                 order -> deleteOrderById(order.getId())

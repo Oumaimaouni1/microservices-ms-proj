@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class RestaurantServiceImpl implements RestaurantService {
     private RestaurantRepository repository;
     private KafkaTemplate<String, String> kafkaTemplate;
-    private static final String TOPIC = "event-topic";
+    private static final String TOPIC = "restaurant-topic";
 
     public List<RestaurantDTO> findAllRestaurants() {
         return repository.findAll().stream()
@@ -42,7 +42,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
     public void deleteRestaurantById(String restaurantId) {
         repository.deleteById(restaurantId);
-        sendRestaurant(restaurantId);
+     //   sendRestaurant(restaurantId);
     }
 
 }
