@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface RestaurantService {
     List<RestaurantDTO> findAllRestaurants();
-    RestaurantDTO getRestaurantById(String restauId);
+    RestaurantDTO getRestaurantById(String restaurantId);
     RestaurantDTO saveRestaurant(RestaurantDTO restaurantDTO);
-    void deleteRestaurantById(String restauId);
-    void sendRestaurant(String restauId);
+    void deleteRestaurantById(String restaurantId);
+    void sendRestaurant(String restaurantId);
 }
 

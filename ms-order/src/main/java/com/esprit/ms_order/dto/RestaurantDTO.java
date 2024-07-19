@@ -4,7 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record RestaurantDTO(
-        String restauId,
+        String restaurantId,
         String name,
         String localisation) {
 }
