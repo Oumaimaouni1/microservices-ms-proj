@@ -106,7 +106,7 @@ services:
     container_name: gateway-server
     restart: on-failure
     ports:
-      - '8077:8077'
+      - '8070:8070'
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://keycloak:8080/realms/myrealm
@@ -126,7 +126,7 @@ services:
     container_name: ms-order
     restart: on-failure
     ports:
-      - '8083:8083'
+      - '8086:8086'
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://keycloak:8080/realms/myrealm
@@ -155,7 +155,7 @@ services:
     container_name: ms-restaurant
     restart: on-failure
     ports:
-      - '8081:8081'
+      - '8082:8082'
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
       - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/restaurant_db

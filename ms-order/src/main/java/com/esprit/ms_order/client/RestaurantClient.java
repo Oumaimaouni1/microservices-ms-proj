@@ -15,8 +15,4 @@ public interface RestaurantClient {
     @CircuitBreaker(name="msRestaurant",fallbackMethod ="fallbackGetRestaurantById")
     RestaurantDTO getRestaurantById(@PathVariable("id") String id);
 
-    default RestaurantDTO fallbackGetRestaurantById(String id, Throwable throwable) {
-        return new RestaurantDTO("0", "Fallback", "na");
-    }
-
 }
