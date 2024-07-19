@@ -9,8 +9,8 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface RestaurantMapper {
     RestaurantMapper INSTANCE = Mappers.getMapper(RestaurantMapper.class);
-    @Mapping(target = "restauId", source = "id")
+    @Mapping(target = "restaurantId", source = "id")
     RestaurantDTO toDto(Restaurant stock);
-    @Mapping(target = "id", source = "restauId")
+    @Mapping(target = "id", source = "restaurantId")
     Restaurant toEntity(RestaurantDTO restaurantDTO);
 }

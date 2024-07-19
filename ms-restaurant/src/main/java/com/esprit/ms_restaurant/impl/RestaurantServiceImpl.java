@@ -26,8 +26,8 @@ public class RestaurantServiceImpl implements RestaurantService {
                 .collect(Collectors.toList());
     }
 
-    public RestaurantDTO getRestaurantById(String restauId) {
-        Restaurant restaurant = repository.findById(restauId).orElse(null);
+    public RestaurantDTO getRestaurantById(String restaurantId) {
+        Restaurant restaurant = repository.findById(restaurantId).orElse(null);
         return RestaurantDTO.mapFromEntity(restaurant);
     }
 
@@ -36,13 +36,13 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurant = repository.save(restaurant);
         return RestaurantDTO.mapFromEntity(restaurant);
     }
-    public void sendRestaurant(String restauId) {
-        kafkaTemplate.send(TOPIC, restauId);
-        log.info("Produced event: {}", restauId);
+    public void sendRestaurant(String restaurantId) {
+        kafkaTemplate.send(TOPIC, restaurantId);
+        log.info("Produced event: {}", restaurantId);
     }
-    public void deleteRestaurantById(String restauId) {
-        repository.deleteById(restauId);
-        sendRestaurant(restauId);
+    public void deleteRestaurantById(String restaurantId) {
+        repository.deleteById(restaurantId);
+        sendRestaurant(restaurantId);
     }
 
 }

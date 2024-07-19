@@ -48,16 +48,16 @@ public class OrderServiceImpl implements OrderService {
             );
             RestaurantDTO restaurantDTO = response.getBody();
             OrderDTO orderDTO = orderMappper.toDto(order);
-            return new OrderDTO(orderDTO.orderId(), orderDTO.price(), orderDTO.restauId(), restaurantDTO);
+            return new OrderDTO(orderDTO.orderId(), orderDTO.price(), orderDTO.restaurantId(), restaurantDTO);
         }).orElseThrow(() -> new IllegalArgumentException("Order not found"));
     }
 
     public OrderDTO saveOrder(OrderDTO orderDTO) {
-        RestaurantDTO restaurantDTO = restaurantClient.getRestaurantById(orderDTO.restauId());
+        RestaurantDTO restaurantDTO = restaurantClient.getRestaurantById(orderDTO.restaurantId());
         if(restaurantDTO != null) {
             Orders order = orderMappper.toEntity(orderDTO);
             orderRepository.save(order);
-            return new OrderDTO(orderDTO.orderId(), orderDTO.price(), orderDTO.restauId(), restaurantDTO);
+            return new OrderDTO(orderDTO.orderId(), orderDTO.price(), orderDTO.restaurantId(), restaurantDTO);
         }
         else throw new IllegalArgumentException("Restaurant not found");
     }
@@ -66,8 +66,8 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findAll().stream()
                 .map(order -> {
                     OrderDTO orderDTO = orderMappper.toDto(order);
-                    RestaurantDTO restaurantDTO = restaurantClient.getRestaurantById(orderDTO.restauId());
-                    return new OrderDTO(orderDTO.orderId(), orderDTO.price(), orderDTO.restauId(), restaurantDTO);
+                    RestaurantDTO restaurantDTO = restaurantClient.getRestaurantById(orderDTO.restaurantId());
+                    return new OrderDTO(orderDTO.orderId(), orderDTO.price(), orderDTO.restaurantId(), restaurantDTO);
                 })
                 .collect(Collectors.toList());
     }
