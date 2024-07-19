@@ -4,7 +4,7 @@ import com.esprit.ms_order.client.RestaurantClient;
 import com.esprit.ms_order.dto.OrderDTO;
 import com.esprit.ms_order.dto.RestaurantDTO;
 import com.esprit.ms_order.mapper.OrderMappper;
-import com.esprit.ms_order.model.Order;
+import com.esprit.ms_order.model.Orders;
 import com.esprit.ms_order.repositories.OrderRepository;
 import com.esprit.ms_order.services.OrderService;
 import lombok.AllArgsConstructor;
@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
     private RestaurantClient restaurantClient;
     private OrderMappper orderMappper;
     private RestTemplate restTemplate;
-    private static final String EVENT_SERVICE_URL = "http://MS-EVENT/events/";
+    private static final String RESTAURANT_SERVICE_URL = "http://MS-RESTAURANT/restaurants/";
 
     public OrderDTO getOrderById(Long id) {
         Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -39,27 +39,27 @@ public class OrderServiceImpl implements OrderService {
         headers.setBearerAuth(token);
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        return orderRepository.findById(id).map(ticket -> {
+        return orderRepository.findById(id).map(order -> {
             ResponseEntity<RestaurantDTO> response = restTemplate.exchange(
-                    EVENT_SERVICE_URL + ticket.getEventId(),
+                    RESTAURANT_SERVICE_URL + order.getRestaurantId(),
                     HttpMethod.GET,
                     entity,
                     RestaurantDTO.class
             );
             RestaurantDTO restaurantDTO = response.getBody();
-            OrderDTO orderDTO = orderMappper.toDto(ticket);
+            OrderDTO orderDTO = orderMappper.toDto(order);
             return new OrderDTO(orderDTO.orderId(), orderDTO.price(), orderDTO.restauId(), restaurantDTO);
-        }).orElseThrow(() -> new IllegalArgumentException("Ticket not found"));
+        }).orElseThrow(() -> new IllegalArgumentException("Order not found"));
     }
 
     public OrderDTO saveOrder(OrderDTO orderDTO) {
         RestaurantDTO restaurantDTO = restaurantClient.getRestaurantById(orderDTO.restauId());
         if(restaurantDTO != null) {
-            Order order = orderMappper.toEntity(orderDTO);
+            Orders order = orderMappper.toEntity(orderDTO);
             orderRepository.save(order);
             return new OrderDTO(orderDTO.orderId(), orderDTO.price(), orderDTO.restauId(), restaurantDTO);
         }
-        else throw new IllegalArgumentException("Event not found");
+        else throw new IllegalArgumentException("Restaurant not found");
     }
 
     public List<OrderDTO> findAllOrders() {
@@ -78,7 +78,7 @@ public class OrderServiceImpl implements OrderService {
 
     @KafkaListener(topics = "event-topic", groupId = "group_id")
     public void consumeEvent(String idRestau) {
-        orderRepository.findAllByEventId(idRestau).forEach(
+        orderRepository.findAllByRestaurantId(idRestau).forEach(
                 order -> deleteOrderById(order.getId())
         );
         log.info("Consumed event: {}", idRestau);

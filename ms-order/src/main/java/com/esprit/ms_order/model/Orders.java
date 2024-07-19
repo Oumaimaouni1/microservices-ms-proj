@@ -12,12 +12,12 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Order {
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Float price;
-    private String eventId;
+    private String restaurantId;
 
 }
 
