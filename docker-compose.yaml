@@ -126,7 +126,7 @@ services:
     container_name: ms-order
     restart: on-failure
     ports:
-      - '8084:8084'
+      - '8083:8083'
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://keycloak:8080/realms/myrealm
